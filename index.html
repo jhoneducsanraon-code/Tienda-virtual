@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tienda de Albarrotes</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="#" class="active" data-panel="catalogo">Catálogo</a>
+      <a href="#" data-panel="carrito">Carrito</a>
+      <a href="#" data-panel="pedido">Hacer Pedido</a>
+      <a href="#" data-panel="contacto">Contacto</a>
+      <a href="#" data-panel="login" class="admin-link">Login</a>
+      <a href="#" data-panel="registro" class="admin-link">Registrarse</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Catálogo -->
+    <section id="catalogo" class="panel active" aria-hidden="false">
+      <h1>Catálogo de Productos</h1>
+      <div class="catalogo">
+        <!-- Ejemplo de producto -->
+        <article class="producto">
+          <img src="https://via.placeholder.com/200x300?text=Producto+1" alt="Producto 1" />
+          <h3>Arroz Integral</h3>
+          <p class="precio">12.50</p>
+          <button>Comprar</button>
+        </article>
+        <article class="producto">
+          <img src="https://via.placeholder.com/200x300?text=Producto+2" alt="Producto 2" />
+          <h3>Frijoles Negros</h3>
+          <p class="precio">8.75</p>
+          <button>Comprar</button>
+        </article>
+        <!-- Agrega más productos aquí -->
+      </div>
+    </section>
+
+    <!-- Carrito -->
+    <section id="carrito" class="panel" aria-hidden="true">
+      <h2>Carrito de Compras</h2>
+      <div class="carrito-items"></div>
+      <div class="carrito-total">Total: S/ 0.00</div>
+      <button id="finalizarCompra">Finalizar Compra</button>
+      <button id="cerrarCarrito" class="cerrar">Cerrar</button>
+    </section>
+
+    <!-- Pedido -->
+    <section id="pedido" class="panel" aria-hidden="true">
+      <h2>Realiza tu Pedido</h2>
+      <form id="formPedido">
+        <label for="productoPedido">Producto</label>
+        <input type="text" id="productoPedido" name="producto" placeholder="Nombre del producto" required />
+
+        <label for="cantidadPedido">Cantidad</label>
+        <input type="number" id="cantidadPedido" name="cantidad" min="1" required />
+
+        <label for="direccionPedido">Dirección</label>
+        <textarea id="direccionPedido" name="direccion" rows="3" required></textarea>
+
+        <label for="telefonoPedido">Teléfono</label>
+        <input type="tel" id="telefonoPedido" name="telefono" placeholder="Número de teléfono" pattern="[0-9]{7,15}" required />
+
+        <button type="submit">Enviar Pedido</button>
+      </form>
+      <button id="cerrarPedido" class="cerrar">Cerrar</button>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" class="panel" aria-hidden="true">
+      <h2>Contacto</h2>
+      <form id="formContacto">
+        <label for="nombreContacto">Nombre</label>
+        <input type="text" id="nombreContacto" name="nombre" required />
+
+        <label for="emailContacto">Correo Electrónico</label>
+        <input type="email" id="emailContacto" name="email" required />
+
+        <label for="mensajeContacto">Mensaje</label>
+        <textarea id="mensajeContacto" name="mensaje" rows="4" required></textarea>
+
+        <button type="submit">Enviar Mensaje</button>
+      </form>
+      <button id="cerrarContacto" class="cerrar">Cerrar</button>
+    </section>
+
+    <!-- Login (Admin y usuario) -->
+    <section id="login" class="panel" aria-hidden="true">
+      <h2>Iniciar Sesión</h2>
+      <form id="formLogin">
+        <label for="usuarioLogin">Usuario</label>
+        <input type="text" id="usuarioLogin" name="usuario" required />
+
+        <label for="passwordLogin">Contraseña</label>
+        <input type="password" id="passwordLogin" name="password" required />
+
+        <button type="submit">Ingresar</button>
+      </form>
+      <button id="cerrarLogin" class="cerrar">Cerrar</button>
+    </section>
+
+    <!-- Registro -->
+    <section id="registro" class="panel" aria-hidden="true">
+      <h2>Registrarse</h2>
+      <form id="formRegistro">
+        <label for="usuarioRegistro">Usuario</label>
+        <input type="text" id="usuarioRegistro" name="usuario" required />
+
+        <label for="passwordRegistro">Contraseña</label>
+        <input type="password" id="passwordRegistro" name="password" required />
+
+        <label for="telefonoRegistro">Teléfono</label>
+        <input type="tel" id="telefonoRegistro" name="telefono" pattern="[0-9]{7,15}" required />
+
+        <button type="submit">Registrarse</button>
+      </form>
+      <button id="cerrarRegistro" class="cerrar">Cerrar</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Tienda de Albarrotes</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
