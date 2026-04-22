@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - FerreTech Pro</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="auth-body">
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <a href="index.html" class="auth-logo">
+                    <i class="fas fa-tools"></i>
+                    <span>FerreTech<strong>Pro</strong></span>
+                </a>
+                <h2>Crear Cuenta</h2>
+                <p>Regístrate para acceder a todos nuestros productos y servicios</p>
+            </div>
+
+            <form class="auth-form" id="registerForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Nombre completo</label>
+                        <input type="text" id="regName" placeholder="Tu nombre" required minlength="3">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-phone"></i> Teléfono</label>
+                        <input type="tel" id="regPhone" placeholder="+1 234 567 890" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Correo electrónico</label>
+                    <input type="email" id="regEmail" placeholder="tu@correo.com" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-map-marker-alt"></i> Dirección</label>
+                    <input type="text" id="regAddress" placeholder="Tu dirección completa" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Contraseña</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="regPassword" placeholder="Mínimo 6 caracteres" required minlength="6">
+                        <button type="button" class="password-toggle" data-target="regPassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Confirmar contraseña</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="regPasswordConfirm" placeholder="Repite tu contraseña" required minlength="6">
+                        <button type="button" class="password-toggle" data-target="regPasswordConfirm">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block btn-lg">
+                    <i class="fas fa-user-plus"></i> Crear Cuenta
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p>¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = API.Auth.getCurrentUser();
+            if (user) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            API.Init.seedData();
+
+            // Toggle password
+            document.querySelectorAll('.password-toggle').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const target = document.getElementById(btn.dataset.target);
+                    const icon = btn.querySelector('i');
+                    if (target.type === 'password') {
+                        target.type = 'text';
+                        icon.classList.replace('fa-eye', 'fa-eye-slash');
+                    } else {
+                        target.type = 'password';
+                        icon.classList.replace('fa-eye-slash', 'fa-eye');
+                    }
+                });
+            });
+
+            // Register form
+            document.getElementById('registerForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const name = document.getElementById('regName').value.trim();
+                const phone = document.getElementById('regPhone').value.trim();
+                const email = document.getElementById('regEmail').value.trim();
+                const address = document.getElementById('regAddress').value.trim();
+                const password = document.getElementById('regPassword').value;
+                const passwordConfirm = document.getElementById('regPasswordConfirm').value;
+
+                if (password !== passwordConfirm) {
+                    showToast('Las contraseñas no coinciden', 'error');
+                    return;
+                }
+
+                const result = API.Auth.register({ name, phone, email, address, password });
+                if (result.success) {
+                    showToast('¡Cuenta creada exitosamente!', 'success');
+                    setTimeout(() => { window.location.href = 'login.html'; }, 1000);
+                } else {
+                    showToast(result.message, 'error');
+                }
+            });
+        });
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            const icons = { success: 'check-circle', error: 'exclamation-circle', info: 'info-circle', warning: 'exclamation-triangle' };
+            toast.innerHTML = `<i class="fas fa-${icons[type] || icons.info}"></i><span>${message}</span>`;
+            container.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.add('show'));
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
