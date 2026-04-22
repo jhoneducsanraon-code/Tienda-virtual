@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito - FerreTech Pro</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-tools"></i>
+                <span>FerreTech<strong>Pro</strong></span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
+                <a href="carrito.html" class="nav-link active nav-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </a>
+                <div class="nav-user" id="navUser"></div>
+            </div>
+            <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- CART CONTENT -->
+    <main class="cart-page">
+        <div class="container">
+            <div class="page-header">
+                <h1><i class="fas fa-shopping-cart"></i> Mi Carrito</h1>
+                <a href="index.html" class="btn btn-outline btn-sm">
+                    <i class="fas fa-arrow-left"></i> Seguir comprando
+                </a>
+            </div>
+
+            <div class="cart-layout" id="cartLayout">
+                <div class="cart-items" id="cartItems"></div>
+                <div class="cart-summary" id="cartSummary">
+                    <h3><i class="fas fa-receipt"></i> Resumen del Pedido</h3>
+                    <div class="summary-lines">
+                        <div class="summary-line">
+                            <span>Subtotal</span>
+                            <span id="subtotal">$0.00</span>
+                        </div>
+                        <div class="summary-line">
+                            <span>IVA (16%)</span>
+                            <span id="tax">$0.00</span>
+                        </div>
+                        <div class="summary-line summary-total">
+                            <span>Total</span>
+                            <span id="total">$0.00</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-block" id="checkoutBtn">
+                        <i class="fas fa-credit-card"></i> Confirmar Pedido
+                    </button>
+                    <button class="btn btn-danger btn-block btn-sm" id="clearCartBtn">
+                        <i class="fas fa-trash"></i> Vaciar Carrito
+                    </button>
+                </div>
+            </div>
+
+            <div class="empty-state hidden" id="emptyCart">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Tu carrito está vacío</h3>
+                <p>Agrega productos o solicita servicios desde nuestro catálogo</p>
+                <a href="index.html" class="btn btn-primary"><i class="fas fa-store"></i> Ir al catálogo</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- TOAST -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/api.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>
